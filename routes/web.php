@@ -42,3 +42,15 @@ Route::get('perfil/{id?}', function ($id = null) {
     return 'Visualizar el currículo de ' . $id;
 }) -> where('id', '[0-9]+');
 
+
+Route::get('/users', function () {
+    return view('users.listaUsuarios', [
+        'users' => [
+            ['id' => 1, 'name' => 'Alice'],
+            ['id' => 2, 'name' => 'Luis'],
+            ['id' => 3, 'name' => 'Maurice'],
+            ['id' => 4, 'name' => 'Matt']
+        ]
+    ]);
+});
+
