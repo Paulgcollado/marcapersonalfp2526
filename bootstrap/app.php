@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->validateCsrfTokens(except: [
-            'http://marcapersonalfp.test/api/records/*',
+            '/api/*',
         ]);
 
         $middleware->alias([
