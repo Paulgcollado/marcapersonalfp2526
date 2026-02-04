@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CicloController;
+use App\Http\Controllers\API\CurriculoController;
 use App\Http\Controllers\API\FamiliaProfesionalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,18 +13,14 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Rutas /api/v1
 
+// Rutas /api/v1
 Route::prefix('v1')->group(function () {
     Route::apiResource('ciclos', CicloController::class);
-
+    Route::middleware(['auth:sanctum'])->apiResource('curriculos', CurriculoController::class);
     Route::apiResource('familias_profesionales', FamiliaProfesionalController::class)
-    ->parameters([
-        'familias_profesionales' => 'familiaProfesional'
-    ]);
-
+        ->parameters(['familias_profesionales' => 'familiaProfesional']);
 });
-
 
 
 // Rutas PHP-CRUD-API
