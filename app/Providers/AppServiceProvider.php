@@ -27,8 +27,13 @@ class AppServiceProvider extends ServiceProvider
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
         });
 
-        Gate::define('update-curriculo', function(User $user, Curriculo $curriculo) {
-            return $user->id === $curriculo->user_id;
+        Gate::define('owner', function(User $user, $recurso, $ownerField = "user_id") {
+            if (!$recurso && !$recurso->hasAttribute("user_id")) {
+                $is_owner = false;
+            }
+
+            $is_owner = $user->id === $recurso->user_id;
+            return $is_owner;
         });
     }
 }
