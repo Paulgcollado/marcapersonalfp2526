@@ -16,10 +16,19 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 // Rutas /api/v1
 Route::prefix('v1')->group(function () {
-    Route::apiResource('ciclos', CicloController::class);
-    Route::middleware(['auth:sanctum'])->apiResource('curriculos', CurriculoController::class);
-    Route::apiResource('familias_profesionales', FamiliaProfesionalController::class)
-        ->parameters(['familias_profesionales' => 'familiaProfesional']);
+    // ------------------------------------------------------------------------------
+    // PUEDE ENTRAR TODO EL MUNDO.
+    Route::apiResource('curriculos', CurriculoController::class)->only(["index", "show"]);
+
+    // ------------------------------------------------------------------------------
+    // REQUIERE AUTENTICACIÓN.
+    Route::middleware("auth:sanctum")->group(function () {
+        Route::apiResource('ciclos', CicloController::class);
+        Route::apiResource('curriculos', CurriculoController::class)
+            ->only(["store", "update", "destroy"]);
+        Route::apiResource('familias_profesionales', FamiliaProfesionalController::class)
+            ->parameters(['familias_profesionales' => 'familiaProfesional']);
+    });
 });
 
 

@@ -11,17 +11,17 @@ class CurriculoPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Curriculo $curriculo): bool
+    public function view(?User $user, Curriculo $curriculo): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class CurriculoPolicy
      */
     public function update(User $user, Curriculo $curriculo): bool
     {
-        return false;
+        return $user->id === $curriculo->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class CurriculoPolicy
      */
     public function delete(User $user, Curriculo $curriculo): bool
     {
-        return false;
+        return $user->id === $curriculo->user_id;
     }
 
     /**
