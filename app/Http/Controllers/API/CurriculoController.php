@@ -44,8 +44,6 @@ class CurriculoController extends Controller
      */
     public function update(Request $request, Curriculo $curriculo)
     {
-        abort_if(!Gate::allows('owner', $curriculo), 403);
-
         $authUser = Auth::user()->id;
         $curriculoData = ['user_id' => $authUser];
         $curriculo->update($curriculoData);
@@ -58,7 +56,6 @@ class CurriculoController extends Controller
      */
     public function destroy(Curriculo $curriculo)
     {
-        abort_if(!Gate::allows('owner', $curriculo), 403);
         $curriculo->delete();
     }
 }

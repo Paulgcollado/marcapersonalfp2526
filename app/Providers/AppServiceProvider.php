@@ -26,14 +26,5 @@ class AppServiceProvider extends ServiceProvider
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
         });
-
-        Gate::define('owner', function(User $user, $recurso, $ownerField = "user_id") {
-            if (!$recurso && !$recurso->hasAttribute("user_id")) {
-                $is_owner = false;
-            }
-
-            $is_owner = $user->id === $recurso->user_id;
-            return $is_owner;
-        });
     }
 }
